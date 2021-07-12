@@ -2,10 +2,6 @@
 
  Express.js REST API with Mongoose
 
-
-- run -> secret-server/backend/bin/development.sh to start dev server in docker-compose
-- run -> secret-server/backend/bin/test.sh to run e2e tests in an isolated environment
-
 this app was generated with the following boilerplate: 
 https://github.com/kunalkapadia/express-mongoose-es6-rest-api
 
@@ -26,6 +22,20 @@ https://github.com/kunalkapadia/express-mongoose-es6-rest-api
 ### to start the server run
 
 ```npm run start:debug```
+
+## [test]
+
+### install all the dependencies
+
+```npm install```
+
+### for unit tests run
+
+```npm run test-unit```
+
+### for e2e tests run
+
+```npm run test-e2e```
 
 ## [project structure]
 
