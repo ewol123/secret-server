@@ -1,0 +1,46 @@
+version: "2"
+
+services:
+  optimonk-server:
+    restart: unless-stopped
+    build:
+      context: ./backend
+    # Expose ports [HOST:CONTAINER}
+    ports:
+      - "4040:4040"
+    # Set environment variables from this file
+    env_file:
+      - ./backend/.env
+    # Overwrite any env var defined in .env file (if required)
+    environment:
+      - MONGO_HOST=mongodb://mongo/optimonk-test-development
+      - DEBUG=optimonk-test:*
+    # Link to containers in another service.
+    # Links also express dependency between services in the same way as depends_on,
+    # so they determine the order of service startup.
+    links:
+      - mongo
+    depends_on: 
+      - mongo
+  optimonk-client:
+    restart: unless-stopped
+    build:
+      context: ./frontend
+    # Expose ports [HOST:CONTAINER}
+    ports:
+      - "3000:3000"
+    # Set environment variables from this file
+    #env_file:
+    #  - ./frontend/.env
+    # Overwrite any env var defined in .env file (if required)
+    environment:
+      - BASE_URL=http://optimonk-server:4040
+    # Link to containers in another service.
+    # Links also express dependency between services in the same way as depends_on,
+    # so they determine the order of service startup.
+    links:
+      - optimonk-server
+  mongo:
+    image: "mongo:4.4.6"
+    ports:
+      - "27017:27017"
